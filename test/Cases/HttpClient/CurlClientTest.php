@@ -1,10 +1,10 @@
 <?php
 
-namespace Swoft\Test\HttpClient;
+namespace Swoft\Http\Test\HttpClient;
 
 use Swoft\App;
 use Swoft\Http\Client;
-use Swoft\Test\AbstractTestCase;
+use Swoft\Http\Test\AbstractTestCase;
 use Swoft\Testing\Base\Response;
 
 /**
