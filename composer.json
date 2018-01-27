@@ -12,20 +12,25 @@
     "description": "HTTP Client Component for Swoft",
     "license": "apache2.0",
     "require": {
-        "swoft/framework": "dev-component",
         "swoft/http-message": "dev-master",
-        "swoft/http-server": "dev-master"
+        "swoft/console": "dev-master",
+        "swoft/framework": "dev-component"
+    },
+    "require-dev": {
+        "eaglewu/swoole-ide-helper": "dev-master",
+        "phpunit/phpunit": "^5.7"
     },
     "autoload": {
         "psr-4": {
             "Swoft\\Http\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Swoft\\Test\\": "test/Cases"
+        }
+    },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/swoft-cloud/framework"
-        },
         {
             "type": "vcs",
             "url": "https://github.com/swoft-cloud/swoft-http-message"
@@ -35,14 +40,18 @@
             "url": "https://github.com/swoft-cloud/swoft-http-server"
         },
         {
+            "type": "vcs",
+            "url": "https://github.com/swoft-cloud/swoft-console"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/swoft-cloud/framework"
+        },
+        {
             "type": "composer",
             "url": "https://packagist.phpcomposer.com"
         }
     ],
-    "require-dev": {
-        "eaglewu/swoole-ide-helper": "dev-master",
-        "phpunit/phpunit": "^5.7"
-    },
     "scripts": {
         "test": "./vendor/bin/phpunit -c phpunit.xml"
     }

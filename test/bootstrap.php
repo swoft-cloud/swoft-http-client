@@ -4,8 +4,12 @@ require_once dirname(__FILE__, 2) . '/test/config/define.php';
 
 // init
 \Swoft\App::$isInTest = true;
+\Swoft\Bean\BeanFactory::init();
 
-$server = new \Swoft\Server\HttpServer();
+/* @var \Swoft\Bootstrap\Boots\Bootable $bootstrap*/
+$bootstrap = \Swoft\App::getBean(\Swoft\Bootstrap\Bootstrap::class);
+$bootstrap->bootstrap();
+
 \Swoft\Bean\BeanFactory::reload([
     'application' => [
         'class' => \Swoft\Testing\Application::class,

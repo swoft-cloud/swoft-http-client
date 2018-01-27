@@ -7,4 +7,7 @@ return [
         'errorAction' => '/error/index',
         'useProvider' => false,
     ],
+    'eventManager'    => [
+        'class'     => \Swoft\Event\EventManager::class,
+    ],
 ];
