@@ -1,11 +1,11 @@
 <?php
 
-namespace Swoft\Http\Test\HttpClient;
+namespace SwoftTest\Http\HttpClient;
 
 use Swoft\App;
 use Swoft\Core\Coroutine;
 use Swoft\Http\Client;
-use Swoft\Http\Test\AbstractTestCase;
+use SwoftTest\Http\AbstractTestCase;
 use Swoft\Testing\Base\Response;
 
 /**
