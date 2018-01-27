@@ -4,7 +4,7 @@ namespace Swoft\Http\Adapter;
 
 use Swoft\App;
 use Swoft\Http\Message\Base\Response as BaseResponse;
-use Swoft\Testing\Base\Response as TestingBaseResponse;
+use Swoft\Http\Message\Testing\Base\Response as TestingBaseResponse;
 
 trait ResponseTrait
 {
