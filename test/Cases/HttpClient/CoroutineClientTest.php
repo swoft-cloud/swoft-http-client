@@ -40,7 +40,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'https://www.swoft.org',
             ])->getResponse();
-            $response->assertStatus(302);
+            $response->assertSuccessful()->assertSee('Swoft 官网');
 
             // TODO add redirect HTTPS support
 
