@@ -61,8 +61,8 @@ class CurlAdapter implements AdapterInterface
             throw new \RuntimeException($errorNo, $errorString);
         }
 
-        $result = new HttpResult(null, $resource, $profileKey, $result, false);
-        $result->setAdapter($this);
+        $result = new HttpResult($result);
+        $result->client = $resource;
         return $result;
     }
 

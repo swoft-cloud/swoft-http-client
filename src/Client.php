@@ -70,10 +70,10 @@ class Client
      * @param string              $method
      * @param string|UriInterface $uri
      * @param array               $options
-     * @return HttpResult
+     * @return HttpResultInterface
      * @throws \InvalidArgumentException
      */
-    public function request(string $method, $uri, array $options = []): HttpResult
+    public function request(string $method, $uri, array $options = []): HttpResultInterface
     {
         $options = $this->prepareDefaults($options);
         $headers = $options['headers'] ?? [];
