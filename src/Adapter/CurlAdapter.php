@@ -6,6 +6,7 @@ use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
 use Swoft\Http\HttpResult;
+use Swoft\Http\HttpResultInterface;
 
 /**
  * Curl driver adapter
@@ -22,17 +23,17 @@ class CurlAdapter implements AdapterInterface
     /**
      * @param RequestInterface $request
      * @param array            $options
-     * @return HttpResult
+     * @return HttpResultInterface
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function request(RequestInterface $request, array $options = []): HttpResult
+    public function request(RequestInterface $request, array $options = []): HttpResultInterface
     {
         $this->checkExtension();
         $options = $this->handleOptions(array_merge($this->defaultOptions, $options));
 
         $url = (string)$request->getUri();
-        $profileKey = 'http.' . $url;
+        $profileKey = 'HttpClient.' . $url;
 
         App::profileStart($profileKey);
 

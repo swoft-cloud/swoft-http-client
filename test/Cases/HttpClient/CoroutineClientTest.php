@@ -39,7 +39,7 @@ class CoroutineClientTest extends AbstractTestCase
             /** @var Response $response */
             $response = $client->request($method, '', [
                 'base_uri' => 'https://www.swoft.org',
-            ])->getResult();
+            ])->getResponse();
             $response->assertStatus(302);
 
             // TODO add redirect HTTPS support
@@ -47,13 +47,12 @@ class CoroutineClientTest extends AbstractTestCase
             /** @var Response $response */
             $response = $client->request($method, '/?a=1', [
                 'base_uri' => 'http://echo.swoft.org',
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful();
             $this->assertJson($response->getBody()->getContents());
             $body = json_decode($response->getBody()->getContents(), true);
             $this->assertEquals('a=1', $body['uri']['query']);
 
-            swoole_event_exit();
         });
     }
 
@@ -75,7 +74,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'http://echo.swoft.org',
                 'body' => $body,
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful()
                 ->assertHeader('Content-Type', 'application/json')
                 ->assertJsonFragment([
@@ -96,7 +95,6 @@ class CoroutineClientTest extends AbstractTestCase
                     'body' => $body,
                 ]);
 
-            swoole_event_exit();
         });
     }
 
@@ -144,7 +142,6 @@ class CoroutineClientTest extends AbstractTestCase
                     'body' => http_build_query($body),
                 ]);
 
-            swoole_event_exit();
         });
     }
 
@@ -192,7 +189,6 @@ class CoroutineClientTest extends AbstractTestCase
                     'body' => json_encode($body),
                 ]);
 
-            swoole_event_exit();
         });
     }
 
@@ -240,7 +236,6 @@ class CoroutineClientTest extends AbstractTestCase
                     'body' => json_encode($body),
                 ]);
 
-            swoole_event_exit();
         });
     }
 
@@ -288,7 +283,6 @@ class CoroutineClientTest extends AbstractTestCase
                     'body' => json_encode($body),
                 ]);
 
-            swoole_event_exit();
         });
     }
 
@@ -317,7 +311,6 @@ class CoroutineClientTest extends AbstractTestCase
             $response2->assertSuccessful()->assertSee('Swoft 官网');
             $response3->assertSuccessful()->assertSee('Swoft 官网');
 
-            swoole_event_exit();
         });
     }
 
@@ -332,7 +325,6 @@ class CoroutineClientTest extends AbstractTestCase
             $expected = sprintf('Swoft/%s PHP/%s', App::version(), PHP_VERSION);
             $this->assertEquals($expected, $client->getDefaultUserAgent());
 
-            swoole_event_exit();
         });
     }
 }

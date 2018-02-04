@@ -6,8 +6,9 @@ use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
 use Swoft\Http\HttpDeferResult;
-use Swoft\Http\HttpResult;
+use Swoft\Http\HttpResultInterface;
 use Swoft\Http\Message\Uri\Uri;
+use Swoole\Coroutine;
 use Swoole\Coroutine\Http\Client as CoHttpClient;
 
 /**
@@ -27,22 +28,23 @@ class CoroutineAdapter implements AdapterInterface
      *
      * @param RequestInterface $request
      * @param array            $options
-     * @return HttpResult
+     * @return HttpResultInterface
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function request(RequestInterface $request, array $options = []): HttpResult
+    public function request(RequestInterface $request, array $options = []): HttpResultInterface
     {
         $options = $this->handleOptions(array_merge($this->defaultOptions, $options));
 
         $url = (string)$request->getUri();
-        $profileKey = 'http.' . $url;
+        $profileKey = 'HttpClient.' . $url;
 
         App::profileStart($profileKey);
 
         list($host, $port) = $this->ipResolve($request, $options);
 
-        $client = new CoHttpClient($host, $port);
+        $ssl = $request->getUri()->getScheme() === 'https';
+        $client = new CoHttpClient($host, $port, $ssl);
         $this->applyOptions($client, $request, $options);
         $this->applyMethod($client, $request, $options);
         $client->setDefer();
@@ -55,7 +57,7 @@ class CoroutineAdapter implements AdapterInterface
             throw new \RuntimeException(\socket_strerror($client->errCode), $client->errCode);
         }
 
-        $result = new HttpDeferResult(null, $client, $profileKey, null, false);
+        $result = new HttpDeferResult($client, $profileKey, null);
         return $result;
     }
 
@@ -101,7 +103,7 @@ class CoroutineAdapter implements AdapterInterface
         }
 
         // DHS Lookup
-        $ip = swoole_async_dns_lookup_coro($host);
+        $ip = Coroutine::gethostbyname($host);
         if (! $ip) {
             $message = sprintf('DNS lookup failure, domain = %s', $host);
             App::error($message);

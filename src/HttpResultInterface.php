@@ -2,6 +2,7 @@
 
 namespace Swoft\Http;
 
+use Psr\Http\Message\ResponseInterface;
 use Swoft\Core\ResultInterface;
 
 
@@ -14,5 +15,18 @@ use Swoft\Core\ResultInterface;
  */
 interface HttpResultInterface extends ResultInterface
 {
+
+    /**
+     * @param array ...$params
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getResult(...$params): ResponseInterface;
+
+    /**
+     * @param array ...$params
+     * @return \Psr\Http\Message\ResponseInterface
+     */
+    public function getResponse(...$params): ResponseInterface;
+
 
 }

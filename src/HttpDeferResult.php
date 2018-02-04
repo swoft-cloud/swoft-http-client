@@ -30,7 +30,7 @@ class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
     {
         $client = $this->client;
         $this->recv();
-        $this->sendResult = $client->body;
+        $result = $client->body;
         $client->close();
         $headers = value(function () {
             $headers = [];
@@ -46,7 +46,7 @@ class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
             return $headers;
         });
         $response = $this->createResponse()
-                         ->withBody(new SwooleStream($this->sendResult ?? ''))
+                         ->withBody(new SwooleStream($result ?? ''))
                          ->withHeaders($headers ?? [])
                          ->withStatus($this->deduceStatusCode($client));
         return $response;
@@ -54,11 +54,12 @@ class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
 
     /**
      * @alias getResult()
-     * @return ResponseInterface
+     * @param array $params
+     * @return \Psr\Http\Message\ResponseInterface
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getResponse(): ResponseInterface
+    public function getResponse(...$params): ResponseInterface
     {
         return $this->getResult();
     }

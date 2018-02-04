@@ -46,11 +46,12 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
 
     /**
      * @alias getResult()
-     * @return ResponseInterface
+     * @param array $params
+     * @return \Psr\Http\Message\ResponseInterface
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
-    public function getResponse(): ResponseInterface
+    public function getResponse(...$params): ResponseInterface
     {
         return $this->getResult();
     }
