@@ -217,7 +217,7 @@ class Client
     public function getAdapter(): Adapter\AdapterInterface
     {
         if (! $this->adapter instanceof Adapter\AdapterInterface) {
-            if (Coroutine::isSupportCoroutine()) {
+            if (App::isCoContext()) {
                 $this->setAdapter(new Adapter\CoroutineAdapter());
             } else {
                 $this->setAdapter(new Adapter\CurlAdapter());

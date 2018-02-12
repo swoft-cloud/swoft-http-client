@@ -59,7 +59,7 @@ class CurlAdapter implements AdapterInterface
         $errorString = curl_error($resource);
         if ($errorNo) {
             App::error(sprintf('HttpClient Request ERROR #%s url=%s', $errorNo, $url));
-            throw new \RuntimeException($errorNo, $errorString);
+            throw new \RuntimeException($errorString, $errorNo);
         }
 
         $result = new HttpResult($result);
