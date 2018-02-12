@@ -40,7 +40,8 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
                          ->withBody(new SwooleStream($this->data ?? ''))
                          ->withStatus($status)
                          ->withHeaders($headers);
-        App::debug(sprintf('HTTP request result = %s', JsonHelper::encode($this->sendResult)));
+
+        // App::debug(sprintf('HTTP request result = %s', JsonHelper::encode($this->sendResult)));
         return $response;
     }
 
