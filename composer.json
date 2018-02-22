@@ -14,7 +14,7 @@
     "require": {
         "swoft/http-message": "dev-master",
         "swoft/console": "dev-master",
-        "swoft/framework": "dev-component"
+        "swoft/framework": "dev-master"
     },
     "require-dev": {
         "eaglewu/swoole-ide-helper": "dev-master",
