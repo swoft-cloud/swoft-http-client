@@ -124,7 +124,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'http://echo.swoft.org',
                 'form_params' => $body,
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful()
                 ->assertHeader('Content-Type', 'application/json')
                 ->assertJsonFragment([
@@ -171,7 +171,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'http://echo.swoft.org',
                 'json' => $body,
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful()
                 ->assertHeader('Content-Type', 'application/json')
                 ->assertJsonFragment([
@@ -218,7 +218,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'http://echo.swoft.org',
                 'json' => $body,
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful()
                 ->assertHeader('Content-Type', 'application/json')
                 ->assertJsonFragment([
@@ -265,7 +265,7 @@ class CoroutineClientTest extends AbstractTestCase
             $response = $client->request($method, '', [
                 'base_uri' => 'http://echo.swoft.org',
                 'json' => $body,
-            ])->getResult();
+            ])->getResponse();
             $response->assertSuccessful()
                 ->assertHeader('Content-Type', 'application/json')
                 ->assertJsonFragment([

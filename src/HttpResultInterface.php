@@ -18,9 +18,9 @@ interface HttpResultInterface extends ResultInterface
 
     /**
      * @param array ...$params
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return string
      */
-    public function getResult(...$params): ResponseInterface;
+    public function getResult(...$params): string;
 
     /**
      * @param array ...$params

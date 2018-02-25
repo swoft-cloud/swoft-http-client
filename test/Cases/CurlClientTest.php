@@ -4,7 +4,6 @@ namespace SwoftTest\HttpClient;
 
 use Swoft\App;
 use Swoft\Http\Client;
-use SwoftTest\HttpClient\AbstractTestCase;
 use Swoft\Http\Message\Testing\Base\Response;
 
 /**
@@ -44,7 +43,7 @@ class CurlClientTest extends AbstractTestCase
         /** @var Response $response */
         $response = $client->request($method, '', [
             'base_uri' => 'https://www.swoft.org',
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()->assertSee('Swoft 官网');
 
         // TODO add redirect HTTPS support
@@ -52,7 +51,7 @@ class CurlClientTest extends AbstractTestCase
         /** @var Response $response */
         $response = $client->request($method, '/?a=1', [
             'base_uri' => 'http://echo.swoft.org',
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful();
         $this->assertJson($response->getBody()->getContents());
         $body = json_decode($response->getBody()->getContents(), true);
@@ -76,7 +75,7 @@ class CurlClientTest extends AbstractTestCase
         $response = $client->request($method, '', [
             'base_uri' => 'http://echo.swoft.org',
             'body' => $body,
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment([
@@ -120,7 +119,7 @@ class CurlClientTest extends AbstractTestCase
         $response = $client->request($method, '', [
             'base_uri' => 'http://echo.swoft.org',
             'form_params' => $body,
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment([
@@ -164,7 +163,7 @@ class CurlClientTest extends AbstractTestCase
         $response = $client->request($method, '', [
             'base_uri' => 'http://echo.swoft.org',
             'json' => $body,
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment([
@@ -208,7 +207,7 @@ class CurlClientTest extends AbstractTestCase
         $response = $client->request($method, '', [
             'base_uri' => 'http://echo.swoft.org',
             'json' => $body,
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment([
@@ -252,7 +251,7 @@ class CurlClientTest extends AbstractTestCase
         $response = $client->request($method, '', [
             'base_uri' => 'http://echo.swoft.org',
             'json' => $body,
-        ])->getResult();
+        ])->getResponse();
         $response->assertSuccessful()
             ->assertHeader('Content-Type', 'application/json')
             ->assertJsonFragment([

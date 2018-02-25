@@ -23,24 +23,14 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
      * Return result
      *
      * @param array $params
-     * @return \Psr\Http\Message\ResponseInterface
+     * @return string
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
-    public function getResult(...$params): ResponseInterface
+    public function getResult(...$params): string
     {
-        $client = $this->client;
-
-        $status = curl_getinfo($client, CURLINFO_HTTP_CODE);
-        $headers = curl_getinfo($client);
-        curl_close($client);
-        $response = $this->createResponse()
-                         ->withBody(new SwooleStream($this->data ?? ''))
-                         ->withStatus($status)
-                         ->withHeaders($headers ?? []);
-
-        // App::debug(sprintf('HTTP request result = %s', JsonHelper::encode($this->sendResult)));
-        return $response;
+        $response = $this->getResponse(...$params);
+        return $response->getBody()->getContents();
     }
 
     /**
@@ -52,7 +42,17 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
      */
     public function getResponse(...$params): ResponseInterface
     {
-        return $this->getResult();
+        $client = $this->client;
+
+        $status = curl_getinfo($client, CURLINFO_HTTP_CODE);
+        $headers = curl_getinfo($client);
+        curl_close($client);
+        $response = $this->createResponse()
+                         ->withBody(new SwooleStream($this->data ?? ''))
+                         ->withStatus($status)
+                         ->withHeaders($headers ?? []);
+
+        return $response;
     }
 
 }
