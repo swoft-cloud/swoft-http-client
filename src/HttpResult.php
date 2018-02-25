@@ -3,9 +3,7 @@
 namespace Swoft\Http;
 
 use Psr\Http\Message\ResponseInterface;
-use Swoft\App;
 use Swoft\Core\AbstractDataResult;
-use Swoft\Helper\JsonHelper;
 use Swoft\Http\Adapter\ResponseTrait;
 use Swoft\Http\Message\Stream\SwooleStream;
 
@@ -39,7 +37,7 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
         $response = $this->createResponse()
                          ->withBody(new SwooleStream($this->data ?? ''))
                          ->withStatus($status)
-                         ->withHeaders($headers);
+                         ->withHeaders($headers ?? []);
 
         // App::debug(sprintf('HTTP request result = %s', JsonHelper::encode($this->sendResult)));
         return $response;
