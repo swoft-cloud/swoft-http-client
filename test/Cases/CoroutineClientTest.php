@@ -1,11 +1,11 @@
 <?php
 
-namespace SwoftTest\Http\HttpClient;
+namespace SwoftTest\HttpClient;
 
 use Swoft\App;
 use Swoft\Core\Coroutine;
 use Swoft\Http\Client;
-use SwoftTest\Http\AbstractTestCase;
+use SwoftTest\HttpClient\AbstractTestCase;
 use Swoft\Http\Message\Testing\Base\Response;
 
 /**
@@ -32,6 +32,9 @@ class CoroutineClientTest extends AbstractTestCase
             /** @var Response $response */
             $response = $client->request($method, '', [
                 'base_uri' => 'http://www.swoft.org',
+                'headers' => [
+                    'Accept' => 'text/html'
+                ],
             ])->getResponse();
             $response->assertSuccessful()->assertSee('Swoft 官网');
 
