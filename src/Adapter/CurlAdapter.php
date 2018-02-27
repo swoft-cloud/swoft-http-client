@@ -1,12 +1,12 @@
 <?php
 
-namespace Swoft\Http\Adapter;
+namespace Swoft\HttpClient\Adapter;
 
 use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
-use Swoft\Http\HttpResult;
-use Swoft\Http\HttpResultInterface;
+use Swoft\HttpClient\HttpResult;
+use Swoft\HttpClient\HttpResultInterface;
 
 /**
  * Curl driver adapter

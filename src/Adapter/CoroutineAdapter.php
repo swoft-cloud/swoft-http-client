@@ -1,12 +1,12 @@
 <?php
 
-namespace Swoft\Http\Adapter;
+namespace Swoft\HttpClient\Adapter;
 
 use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
-use Swoft\Http\HttpDeferResult;
-use Swoft\Http\HttpResultInterface;
+use Swoft\HttpClient\HttpDeferResult;
+use Swoft\HttpClient\HttpResultInterface;
 use Swoft\Http\Message\Uri\Uri;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Http\Client as CoHttpClient;

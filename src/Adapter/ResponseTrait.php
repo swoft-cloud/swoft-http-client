@@ -1,6 +1,6 @@
 <?php
 
-namespace Swoft\Http\Adapter;
+namespace Swoft\HttpClient\Adapter;
 
 use Swoft\App;
 use Swoft\Http\Message\Base\Response as BaseResponse;

@@ -1,9 +1,9 @@
 <?php
 
-namespace Swoft\Http\Adapter;
+namespace Swoft\HttpClient\Adapter;
 
 use Psr\Http\Message\RequestInterface;
-use Swoft\Http\HttpResultInterface;
+use Swoft\HttpClient\HttpResultInterface;
 
 /**
  * Http client adapter interface

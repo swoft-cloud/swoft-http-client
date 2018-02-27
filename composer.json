@@ -21,7 +21,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Swoft\\Http\\": "src/"
+            "Swoft\\HttpClient\\": "src/"
         }
     },
     "autoload-dev": {

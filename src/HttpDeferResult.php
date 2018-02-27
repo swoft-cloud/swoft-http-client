@@ -1,10 +1,10 @@
 <?php
 
-namespace Swoft\Http;
+namespace Swoft\HttpClient;
 
 use Psr\Http\Message\ResponseInterface;
 use Swoft\Core\AbstractCoResult;
-use Swoft\Http\Adapter\ResponseTrait;
+use Swoft\HttpClient\Adapter\ResponseTrait;
 use Swoft\Http\Message\Stream\SwooleStream;
 
 
@@ -69,7 +69,7 @@ class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
      * Transfer sockets error code to HTTP status code.
      * TODO transfer more error code
      *
-     * @param \Swoole\Http\Client $client
+     * @param \Swoole\HttpClient $client
      * @return int
      */
     private function deduceStatusCode($client): int

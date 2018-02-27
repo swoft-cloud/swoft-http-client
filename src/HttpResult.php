@@ -1,11 +1,12 @@
 <?php
 
-namespace Swoft\Http;
+namespace Swoft\HttpClient;
 
 use Psr\Http\Message\ResponseInterface;
 use Swoft\Core\AbstractDataResult;
-use Swoft\Http\Adapter\ResponseTrait;
+use Swoft\HttpClient\Adapter\ResponseTrait;
 use Swoft\Http\Message\Stream\SwooleStream;
+use Swoft\HttpClient\Exception\RuntimeException;
 
 /**
  * Http Result
@@ -24,6 +25,7 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
      *
      * @param array $params
      * @return string
+     * @throws \Swoft\HttpClient\Exception\RuntimeException
      * @throws \InvalidArgumentException
      * @throws \RuntimeException
      */
@@ -37,12 +39,16 @@ class HttpResult extends AbstractDataResult implements HttpResultInterface
      * @alias getResult()
      * @param array $params
      * @return \Psr\Http\Message\ResponseInterface
+     * @throws \Swoft\HttpClient\Exception\RuntimeException
      * @throws \RuntimeException
      * @throws \InvalidArgumentException
      */
     public function getResponse(...$params): ResponseInterface
     {
         $client = $this->client;
+        if (!\is_resource($client)) {
+            throw new RuntimeException('Supplied resource is not a valid cURL handler resource');
+        }
 
         $status = curl_getinfo($client, CURLINFO_HTTP_CODE);
         $headers = curl_getinfo($client);

@@ -2,8 +2,7 @@
 
 namespace SwoftTest\HttpClient;
 
-use Swoft\Http\Client;
-use Swoft\Http\Message\Testing\Base\Response;
+use Swoft\HttpClient\Client;
 
 
 /**

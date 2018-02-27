@@ -4,7 +4,7 @@ namespace SwoftTest\HttpClient;
 
 use Swoft\App;
 use Swoft\Core\Coroutine;
-use Swoft\Http\Client;
+use Swoft\HttpClient\Client;
 use SwoftTest\HttpClient\AbstractTestCase;
 use Swoft\Http\Message\Testing\Base\Response;
 
