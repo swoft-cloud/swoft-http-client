@@ -12,8 +12,8 @@
     "description": "HTTP Client Component for Swoft",
     "license": "Apache-2.0",
     "require": {
-        "swoft/http-message": "dev-master",
-        "swoft/framework": "dev-master"
+        "swoft/http-message": "^1.0",
+        "swoft/framework": "^1.0"
     },
     "require-dev": {
         "eaglewu/swoole-ide-helper": "dev-master",
@@ -30,14 +30,6 @@
         }
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/swoft-cloud/swoft-http-message"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/swoft-cloud/framework"
-        },
         {
             "type": "composer",
             "url": "https://packagist.phpcomposer.com"
