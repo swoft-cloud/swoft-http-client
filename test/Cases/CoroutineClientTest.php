@@ -3,10 +3,8 @@
 namespace SwoftTest\HttpClient;
 
 use Swoft\App;
-use Swoft\Core\Coroutine;
-use Swoft\HttpClient\Client;
-use SwoftTest\HttpClient\AbstractTestCase;
 use Swoft\Http\Message\Testing\Base\Response;
+use Swoft\HttpClient\Client;
 
 /**
  * @uses      CoroutineClientTest
@@ -23,7 +21,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function get()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $method = 'GET';
@@ -45,8 +43,6 @@ class CoroutineClientTest extends AbstractTestCase
             ])->getResponse();
             $response->assertSuccessful()->assertSee('Swoft 官网');
 
-            // TODO add redirect HTTPS support
-
             /** @var Response $response */
             $response = $client->request($method, '/?a=1', [
                 'base_uri' => 'http://echo.swoft.org',
@@ -64,7 +60,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function postRawContent()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
 
@@ -106,7 +102,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function postFormParams()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $body = [
@@ -153,7 +149,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function postJson()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $body = [
@@ -200,7 +196,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function putJson()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $body = [
@@ -247,7 +243,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function deleteJson()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $body = [
@@ -294,7 +290,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function batch()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client([
                 'base_uri' => 'http://www.swoft.org',
             ]);
@@ -322,7 +318,7 @@ class CoroutineClientTest extends AbstractTestCase
      */
     public function defaultUserAgent()
     {
-        Coroutine::create(function () {
+        go(function () {
             $client = new Client();
             $client->setAdapter('coroutine');
             $expected = sprintf('Swoft/%s PHP/%s', App::version(), PHP_VERSION);
