@@ -11,9 +11,9 @@ use Swoft\Http\Message\Stream\SwooleStream;
 /**
  * Http Defer Result
  *
- * @property \Swoole\Http\Client|resource $client
+ * @property \Swoole\Http\Client|resource $connection
  */
-class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
+class HttpCoResult extends AbstractCoResult implements HttpResultInterface
 {
 
     use ResponseTrait;
@@ -41,13 +41,13 @@ class HttpDeferResult extends AbstractCoResult implements HttpResultInterface
      */
     public function getResponse(...$params): ResponseInterface
     {
-        $client = $this->client;
+        $client = $this->connection;
         $this->recv();
         $result = $client->body;
         $client->close();
         $headers = value(function () {
             $headers = [];
-            foreach ($this->client->headers as $key => $value) {
+            foreach ($this->connection->headers as $key => $value) {
                 $exploded = explode('-', $key);
                 foreach ($exploded as &$str) {
                     $str = ucfirst($str);

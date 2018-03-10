@@ -5,7 +5,7 @@ namespace Swoft\HttpClient\Adapter;
 use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
-use Swoft\HttpClient\HttpDeferResult;
+use Swoft\HttpClient\HttpCoResult;
 use Swoft\HttpClient\HttpResultInterface;
 use Swoft\Http\Message\Uri\Uri;
 use Swoole\Coroutine;
@@ -57,7 +57,7 @@ class CoroutineAdapter implements AdapterInterface
             throw new \RuntimeException(\socket_strerror($client->errCode), $client->errCode);
         }
 
-        $result = new HttpDeferResult($client, $profileKey, null);
+        $result = new HttpCoResult($client, $profileKey, null);
         return $result;
     }
 
