@@ -5,9 +5,9 @@ namespace Swoft\HttpClient\Adapter;
 use Psr\Http\Message\RequestInterface;
 use Swoft\App;
 use Swoft\Helper\JsonHelper;
+use Swoft\Http\Message\Uri\Uri;
 use Swoft\HttpClient\HttpCoResult;
 use Swoft\HttpClient\HttpResultInterface;
-use Swoft\Http\Message\Uri\Uri;
 use Swoole\Coroutine;
 use Swoole\Coroutine\Http\Client as CoHttpClient;
 
@@ -173,7 +173,8 @@ class CoroutineAdapter implements AdapterInterface
         }
 
         if (isset($options['json'])) {
-            $options['body'] = JsonHelper::encode($options['json']);
+            $jsonOptions = $options['json_options'] ?? JSON_UNESCAPED_UNICODE;
+            $options['body'] = JsonHelper::encode($options['json'], $jsonOptions);
             unset($options['json']);
             $options['_headers']['Content-Type'] = 'application/json';
         }

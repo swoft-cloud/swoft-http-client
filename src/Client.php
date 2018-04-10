@@ -27,6 +27,18 @@ class Client
 
     /**
      * @var array
+     */
+    protected $adapters
+        = [
+            'php' => Adapter\CurlAdapter::class,
+            'curl' => Adapter\CurlAdapter::class,
+            'co' => Adapter\CoroutineAdapter::class,
+            'coroutine' => Adapter\CoroutineAdapter::class,
+            'swoole' => Adapter\CoroutineAdapter::class,
+        ];
+
+    /**
+     * @var array
      * @example [
      *      'adapter' => 'curl',
      *      'base_uri' => 'http://www.swoft.org',
@@ -48,17 +60,13 @@ class Client
     public function __construct(array $config = [])
     {
         // Convert the base_uri to a UriInterface
-        if (isset($config['base_uri'])) {
+        if (! empty($config['base_uri'])) {
             $config['base_uri'] = $this->convertBaseUri($config['base_uri']);
         }
 
         // Set specified adapter if config adapter
-        if (isset($config['adapter'])) {
-            if (\is_string($config['adapter']) && class_exists($config['adapter'])) {
-                $this->setAdapter(new $config['adapter']);
-            } else {
-                $this->setAdapter($config['adapter']);
-            }
+        if (! empty($config['adapter'])) {
+            $this->setAdapter($config['adapter']);
         }
 
         $this->configureDefaults($config);
@@ -67,9 +75,9 @@ class Client
     /**
      * Send a Http request
      *
-     * @param string              $method
+     * @param string $method
      * @param string|UriInterface $uri
-     * @param array               $options
+     * @param array $options
      * @return HttpResultInterface
      * @throws \InvalidArgumentException
      */
@@ -93,7 +101,7 @@ class Client
 
     /**
      * @param string $method
-     * @param array  $args
+     * @param array $args
      * @return HttpResult
      * @throws \InvalidArgumentException
      */
@@ -110,7 +118,7 @@ class Client
 
     /**
      * @param string|UriInterface $uri
-     * @param array               $options
+     * @param array $options
      * @return UriInterface
      * @throws \InvalidArgumentException
      */
@@ -234,16 +242,13 @@ class Client
     public function setAdapter($adapter): Client
     {
         if (\is_string($adapter)) {
-            switch (strtolower($adapter)) {
-                case 'php':
-                case 'curl':
-                    $adapter = new Adapter\CurlAdapter();
-                    break;
-                case 'co':
-                case 'coroutine':
-                case 'swoole':
-                    $adapter = new Adapter\CoroutineAdapter();
-                    break;
+            $adapter = strtolower($adapter);
+            if (!empty($this->adapters[$adapter]) && class_exists($this->adapters[$adapter])) {
+                $adapterClass = $this->adapters[$adapter];
+                $adapterInstance = new $adapterClass();
+                if ($adapterInstance instanceof Adapter\AdapterInterface) {
+                    $adapter = $adapterInstance;
+                }
             }
         }
         if (! $adapter instanceof Adapter\AdapterInterface) {
@@ -375,4 +380,34 @@ class Client
             $this->configs['headers']['User-Agent'] = $this->getDefaultUserAgent();
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getAdapters(): array
+    {
+        return $this->adapters;
+    }
+
+    /**
+     * @param array $adapters
+     * @return $this
+     */
+    public function setAdapters(array $adapters): self
+    {
+        $this->adapters = $adapters;
+        return $this;
+    }
+
+    /**
+     * @param string $key
+     * @param string $class
+     * @return $this
+     */
+    public function addAdapter(string $key, string $class): self
+    {
+        $this->adapters[$key] = $class;
+        return $this;
+    }
+
 }

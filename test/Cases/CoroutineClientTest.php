@@ -16,6 +16,8 @@ use Swoft\HttpClient\Client;
 class CoroutineClientTest extends AbstractTestCase
 {
 
+
+
     /**
      * @test
      */
