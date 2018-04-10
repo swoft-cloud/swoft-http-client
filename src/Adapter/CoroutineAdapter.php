@@ -173,7 +173,7 @@ class CoroutineAdapter implements AdapterInterface
         }
 
         if (isset($options['json'])) {
-            $options['body'] = JsonHelper::encode($options['json']);
+            $options['body'] = JsonHelper::encode($options['json'], JSON_UNESCAPED_UNICODE);
             unset($options['json']);
             $options['_headers']['Content-Type'] = 'application/json';
         }
