@@ -164,7 +164,8 @@ class CurlAdapter implements AdapterInterface
         }
 
         if (isset($options['json'])) {
-            $options['body'] = JsonHelper::encode($options['json'], JSON_UNESCAPED_UNICODE);
+            $jsonOptions = $options['json_options'] ?? JSON_UNESCAPED_UNICODE;
+            $options['body'] = JsonHelper::encode($options['json'], $jsonOptions);
             unset($options['json']);
             $options['_headers']['Content-Type'] = 'application/json';
         }
