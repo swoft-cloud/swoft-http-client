@@ -57,7 +57,7 @@ class CoroutineAdapter implements AdapterInterface
             throw new \RuntimeException(\socket_strerror($client->errCode), $client->errCode);
         }
 
-        $result = new HttpCoResult($client, $profileKey, null);
+        $result = new HttpCoResult(null, $client, $profileKey);
         return $result;
     }
 

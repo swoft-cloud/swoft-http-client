@@ -3,9 +3,9 @@
 namespace Swoft\HttpClient;
 
 use Psr\Http\Message\ResponseInterface;
-use Swoft\Core\AbstractCoResult;
-use Swoft\HttpClient\Adapter\ResponseTrait;
+use Swoft\Core\AbstractResult;
 use Swoft\Http\Message\Stream\SwooleStream;
+use Swoft\HttpClient\Adapter\ResponseTrait;
 
 
 /**
@@ -13,7 +13,7 @@ use Swoft\Http\Message\Stream\SwooleStream;
  *
  * @property \Swoole\Http\Client|resource $connection
  */
-class HttpCoResult extends AbstractCoResult implements HttpResultInterface
+class HttpCoResult extends AbstractResult implements HttpResultInterface
 {
 
     use ResponseTrait;

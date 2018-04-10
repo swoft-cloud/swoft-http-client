@@ -3,15 +3,15 @@
 namespace Swoft\HttpClient;
 
 use Psr\Http\Message\ResponseInterface;
-use Swoft\Core\AbstractDataResult;
-use Swoft\HttpClient\Adapter\ResponseTrait;
+use Swoft\Core\AbstractResult;
 use Swoft\Http\Message\Stream\SwooleStream;
+use Swoft\HttpClient\Adapter\ResponseTrait;
 use Swoft\HttpClient\Exception\RuntimeException;
 
 /**
  * Http Result
  */
-class HttpResult extends AbstractDataResult implements HttpResultInterface
+class HttpResult extends AbstractResult implements HttpResultInterface
 {
     use ResponseTrait;
 
