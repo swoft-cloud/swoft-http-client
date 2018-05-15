@@ -31,19 +31,19 @@ class CoroutineClientTest extends AbstractTestCase
             // Http
             /** @var Response $response */
             $response = $client->request($method, '', [
-                'base_uri' => 'http://www.swoft.org',
+                'base_uri' => 'http://php.net',
                 'headers' => [
                     'Accept' => 'text/html'
                 ],
             ])->getResponse();
-            $response->assertSuccessful()->assertSee('Swoft 官网');
+            $response->assertSuccessful()->assertSee('PHP: Hypertext Preprocessor');
 
             // Https
             /** @var Response $response */
             $response = $client->request($method, '', [
-                'base_uri' => 'https://www.swoft.org',
+                'base_uri' => 'http://php.net',
             ])->getResponse();
-            $response->assertSuccessful()->assertSee('Swoft 官网');
+            $response->assertSuccessful()->assertSee('PHP: Hypertext Preprocessor');
 
             /** @var Response $response */
             $response = $client->request($method, '/?a=1', [
@@ -294,7 +294,7 @@ class CoroutineClientTest extends AbstractTestCase
     {
         go(function () {
             $client = new Client([
-                'base_uri' => 'http://www.swoft.org',
+                'base_uri' => 'http://php.net',
             ]);
             $client->setAdapter('coroutine');
             $request1 = $client->request('GET', '');
@@ -308,9 +308,9 @@ class CoroutineClientTest extends AbstractTestCase
             /** @var Response $response3 */
             $response3 = $request3->getResponse();
 
-            $response1->assertSuccessful()->assertSee('Swoft 官网');
-            $response2->assertSuccessful()->assertSee('Swoft 官网');
-            $response3->assertSuccessful()->assertSee('Swoft 官网');
+            $response1->assertSuccessful()->assertSee('PHP: Hypertext Preprocessor');
+            $response2->assertSuccessful()->assertSee('PHP: Hypertext Preprocessor');
+            $response3->assertSuccessful()->assertSee('PHP: Hypertext Preprocessor');
 
         });
     }
