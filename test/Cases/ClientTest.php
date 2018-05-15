@@ -27,7 +27,7 @@ class ClientTest extends AbstractTestCase
                 'base_uri' => 'http://echo.swoft.org',
             ]);
         };
-        $this->assertEquals($request()->getResponse()->getBody()->getContents(), $request()->getResult());
+        $this->assertJson($request()->getResult());
     }
 
     /**
